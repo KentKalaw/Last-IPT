@@ -14,12 +14,14 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
 
+  final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
 @override
   void dispose() {
+    usernameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
@@ -43,7 +45,7 @@ class _RegisterPageState extends State<RegisterPage> {
       return false;
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,12 +83,19 @@ class _RegisterPageState extends State<RegisterPage> {
             
                 // Email text field
                  MyTextField(
-                    controller: emailController,
+                    controller: usernameController,
                     hintText: 'Enter Email',
                     obscureText: false,
                   ),
             
                 const SizedBox(height: 15),
+
+                MyTextField(
+                    controller: emailController,
+                    hintText: 'Enter Email',
+                    obscureText: false,
+                  ),
+
                 // Password text field
                  MyTextField(
                     controller: passwordController,
