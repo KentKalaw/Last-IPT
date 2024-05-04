@@ -1,5 +1,5 @@
 import "package:finalproj/LoginSection/auth/auth_page.dart";
-import "package:finalproj/Main%20App/home_page.dart";
+import "package:finalproj/Main%20App/mainpages/main_screen.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 
