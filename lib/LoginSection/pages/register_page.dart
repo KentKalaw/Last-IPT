@@ -1,3 +1,5 @@
+import 'dart:js_util';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproj/components/square_tile.dart';
 import 'package:finalproj/components/textfield.dart';
@@ -32,14 +34,14 @@ class _RegisterPageState extends State<RegisterPage> {
     _confirmPasswordController.dispose();
     super.dispose();
   }
-
+ 
   Future signUp() async {
     if (passwordConfirmed()) {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: _emailController.text.trim(),
        password: _emailController.text.trim(),
        );
-
+     User? user = userCredential.user;
        // 
     addUserDetails(
       _firstnameController.text.trim(),

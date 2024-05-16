@@ -7,7 +7,7 @@ class FavoritesProvider with ChangeNotifier {
   
 
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
-final String userId = FirebaseAuth.instance.currentUser!.uid;
+final user = FirebaseAuth.instance.currentUser!.uid;
   
     List<Food> _breakfastFavorites = [];
   List<Food> _lunchFavorites = [];
@@ -20,8 +20,13 @@ final String userId = FirebaseAuth.instance.currentUser!.uid;
 
    void addFavorite(Food food) {
 
-       DocumentReference userRef = FirebaseFirestore.instance.collection('users').doc(userId);
-       userRef.collection('favorites').doc(food.id).set({
+       final userId = FirebaseAuth.instance.currentUser!.uid;
+       FirebaseFirestore.instance
+      .collection('users')
+      .doc(userId)
+      .collection('favorites')
+      .doc(food.id)
+      .set({
         'name': food.name,
         'imagePath': food.imagePath,
         'category': food.category,
@@ -47,11 +52,11 @@ final String userId = FirebaseAuth.instance.currentUser!.uid;
    void removeFavorite(Food food) {
 
     final firestore = FirebaseFirestore.instance;
-    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final user = FirebaseAuth.instance.currentUser!.uid;
 
     firestore
         .collection('users')
-        .doc(userId)
+        .doc(user)
         .collection('favorites')
         .doc(food.id)
         .delete();
