@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproj/constant.dart';
 import 'package:finalproj/Main App/models/food.dart';
@@ -73,7 +74,14 @@ class CookingInstructionsScreen extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.chevron_left),
+                style: IconButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  fixedSize: const Size(50, 50),
+                ),
+                icon: const Icon(CupertinoIcons.chevron_back),
               ),
               const Spacer(),
             ],
