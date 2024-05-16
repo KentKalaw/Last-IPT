@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:finalproj/Main%20App/models/food.dart';
 import 'package:finalproj/Main%20App/widgets/del_recipe_appbar.dart';
 import 'package:finalproj/Main%20App/widgets/food_card.dart';
-import 'package:flutter/material.dart';
 
 class DelRecipeScreen extends StatefulWidget {
   const DelRecipeScreen({super.key});
@@ -11,10 +11,18 @@ class DelRecipeScreen extends StatefulWidget {
 }
 
 class _DelRecipeScreenState extends State<DelRecipeScreen> {
-   @override
+  String _query = '';
+
+  List<Food> get _filteredRecipes {
+    return _query.isEmpty
+        ? foods
+        : foods.where((recipe) => recipe.name.toLowerCase().contains(_query)).toList();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -23,6 +31,21 @@ class _DelRecipeScreenState extends State<DelRecipeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const DelRecipeAppBar(),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: TextField(
+                    decoration: const InputDecoration(
+                      labelText: 'Search recipes...',
+                      prefixIcon: Icon(Icons.search),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        _query = value.toLowerCase();
+                      });
+                    },
+                  ),
+                ),
                 const SizedBox(height: 20),
                 GridView.builder(
                   shrinkWrap: true,
@@ -33,9 +56,9 @@ class _DelRecipeScreenState extends State<DelRecipeScreen> {
                     mainAxisSpacing: 20,
                   ),
                   itemBuilder: (context, index) => FoodCard(
-                    food: foods[index],
+                    food: _filteredRecipes[index],
                   ),
-                  itemCount: foods.length,
+                  itemCount: _filteredRecipes.length,
                 )
               ],
             ),

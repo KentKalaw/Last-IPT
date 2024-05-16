@@ -2,9 +2,7 @@ import 'package:finalproj/LoginSection/pages/forgot_password_page.dart';
 import 'package:finalproj/components/square_tile.dart';
 import 'package:finalproj/components/textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
@@ -26,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
+          
     } on FirebaseAuthException catch (e) {
       showDialog(
           context: context,

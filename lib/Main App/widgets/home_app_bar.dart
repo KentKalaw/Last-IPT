@@ -8,18 +8,21 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text('What are you\ncooking today?', 
-        style: GoogleFonts.poppins(
-          color: const Color.fromARGB(255, 0, 0, 0),
-          fontWeight: FontWeight.bold,
-          fontSize: 32,
+    return Padding(
+      padding: const EdgeInsets.all(25.0),
+      child: Row(
+        children: [
+          Text('What are you\ncooking today?', 
+          style: GoogleFonts.poppins(
+            color: const Color.fromARGB(255, 0, 0, 0),
+            fontWeight: FontWeight.bold,
+            fontSize: 32,
+            ),
           ),
-        ),
-        const Spacer(),
-        
-      ],
+          const Spacer(),
+          
+        ],
+      ),
     );
   }
 }

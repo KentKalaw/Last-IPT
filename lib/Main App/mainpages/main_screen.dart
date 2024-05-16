@@ -1,8 +1,12 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:finalproj/Main%20App/mainpages/del_recipe_screen.dart';
+import 'package:finalproj/Main%20App/mainpages/favorites_screen.dart';
 import 'package:finalproj/Main%20App/mainpages/home_screen.dart';
+import 'package:finalproj/Main%20App/mainpages/profile_screen.dart';
 import 'package:finalproj/constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 
 
 class HomePage extends StatefulWidget {
@@ -15,11 +19,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int currentTab = 0;
   final user = FirebaseAuth.instance.currentUser!;
-  List screens = const [
+ 
+  List screens = [
     HomeScreen(),
-    Scaffold(),
-    Scaffold(),
-    Scaffold(),
+    FavoritesScreen(),
+    DelRecipeScreen(),
+    ProfileScreen(),
   ];
 
   @override

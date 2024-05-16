@@ -37,13 +37,13 @@ class DelRecipeAppBar extends StatelessWidget {
          IconButton(
           onPressed: () {},
           style: IconButton.styleFrom(
-            backgroundColor: Colors.grey[300],
+            backgroundColor: Colors.white,
             fixedSize: const Size(55, 55),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
           ),
-          color: Colors.grey[300],
+          color: Colors.white,
           icon: const Icon(Iconsax.notification),
         ),
         

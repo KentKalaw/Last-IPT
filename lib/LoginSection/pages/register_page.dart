@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproj/components/square_tile.dart';
 import 'package:finalproj/components/textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,31 +15,53 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
 
-  final usernameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
+  final _firstnameController = TextEditingController();
+  final _lastnameController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
 @override
   void dispose() {
-    usernameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
+    _firstnameController.dispose();
+    _lastnameController.dispose();
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
   Future signUp() async {
     if (passwordConfirmed()) {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: emailController.text.trim(),
-       password: emailController.text.trim(),
+      email: _emailController.text.trim(),
+       password: _emailController.text.trim(),
        );
+
+       // 
+    addUserDetails(
+      _firstnameController.text.trim(),
+      _lastnameController.text.trim(),
+      _usernameController.text.trim(),
+      _emailController.text.trim(),
+    );
+
     }
   }
 
+  Future addUserDetails(String firstName, lastname, username, email) async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'first name': firstName,
+      'last name': lastname,
+      'username': username,
+      'email': email,
+    });
+  }
+
   bool passwordConfirmed() {
-    if(passwordController.text.trim() == confirmPasswordController.text.trim()) {
+    if(_passwordController.text.trim() == _confirmPasswordController.text.trim()) {
       return true;
     }
     else {
@@ -56,14 +79,6 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Image.asset(
-                    'lib/images/koyam-logo.png',
-                    height: 180,
-                  ),
-                ),
-              
                 // Hello
                 Text(
                   'Hello There!',
@@ -81,30 +96,49 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 30),
             
-                // Email text field
+                 
+                // first name text field
                  MyTextField(
-                    controller: usernameController,
-                    hintText: 'Enter Email',
+                    controller: _firstnameController,
+                    hintText: 'Enter First name',
                     obscureText: false,
                   ),
             
                 const SizedBox(height: 15),
 
                 MyTextField(
-                    controller: emailController,
+                    controller: _lastnameController,
+                    hintText: 'Enter Last name',
+                    obscureText: false,
+                  ),
+            
+                const SizedBox(height: 15),
+
+                MyTextField(
+                    controller: _usernameController,
+                    hintText: 'Enter Username',
+                    obscureText: false,
+                  ),
+            
+                const SizedBox(height: 15),
+
+                MyTextField(
+                    controller: _emailController,
                     hintText: 'Enter Email',
                     obscureText: false,
                   ),
 
+                  const SizedBox(height: 15),
+
                 // Password text field
                  MyTextField(
-                    controller: passwordController,
+                    controller: _passwordController,
                     hintText: 'Enter Password',
                     obscureText: true,
                   ),
                 const SizedBox(height: 15),
                    MyTextField(
-                    controller: confirmPasswordController,
+                    controller: _confirmPasswordController,
                     hintText: 'Confirm Password',
                     obscureText: true,
                   ),
@@ -112,17 +146,6 @@ class _RegisterPageState extends State<RegisterPage> {
             
                 //forgot pass
             
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text('Forgot Password?',
-                        style: TextStyle(color: Colors.grey[600])),
-                      ],
-                    ),
-                  ),
-                const SizedBox(height: 40),
             
                 // Sign in button
                 Padding(
@@ -204,7 +227,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                   ),
             
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 30),
             
                   const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
